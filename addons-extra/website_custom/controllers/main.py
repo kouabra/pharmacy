@@ -30,7 +30,7 @@ class WebsiteSale(payment_portal.PaymentPortal):
             'email_to': "contact@balisapharma.ci",
             'body_html': f"La commande {order.name} a été confirmé par le client veuillez s'il vous plait procéder à la livraison",
         }
-        mail = request.env['mail.mail'].create(mail_values)
+        mail = request.env['mail.mail'].sudo().create(mail_values)
         mail.send()
 
         return request.render('website_custom.confirmation_page')

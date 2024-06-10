@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="inherit_payment" name="Address Management" inherit_id="website_sale.payment">
-        <xpath expr="//*[@class='btn-link alert-warning ps-2']" position="after">
+<!--        <xpath expr="//*[@class='btn-link alert-warning ps-2']" position="after">-->
+        <xpath expr="//t[@t-if='website_sale_order.amount_total']" position="after">
             <form action="/sale/confirmation">
               <div class="form-group">
 <!--                <label for="email">Email address:</label>-->
 <!--                <input type="email" class="form-control" id="email"/>-->
               </div>
+
 
               <button type="submit" class="btn btn-info">Confirmer la commande</button>
             </form>

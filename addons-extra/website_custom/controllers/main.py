@@ -19,6 +19,22 @@ _logger = logging.getLogger(__name__)
 
 class WebsiteSale(payment_portal.PaymentPortal):
 
+    @http.route('/sale/confirmation', type='http', auth='public', website=True, sitemap=False)
+    def sale_confirmation(self, **post):
+
+        order = request.website.sale_get_order()
+        print("order ", order)
+        order.action_confirm()
+        mail_values = {
+            'subject': "Commande confirmée",
+            'email_to': "contact@balisapharma.ci",
+            'body_html': f"La commande {order.name} a été confirmé par le client veuillez s'il vous plait procéder à la livraison",
+        }
+        mail = request.env['mail.mail'].create(mail_values)
+        mail.send()
+
+        return request.render('website_custom.confirmation_page')
+
 
     def _get_mandatory_fields_billing(self, country_id=False):
         print("_get_mandatory_fields_billing")

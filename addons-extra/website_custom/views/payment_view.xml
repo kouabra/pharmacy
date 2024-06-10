@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="inherit_website_sale_address" name="Address Management" inherit_id="website_sale.payment">
+        <xpath expr="//*[@class='btn-link alert-warning ps-2']" position="after">
+            <form action="/sale/confirmation">
+              <div class="form-group">
+<!--                <label for="email">Email address:</label>-->
+<!--                <input type="email" class="form-control" id="email"/>-->
+              </div>
+
+              <button type="submit" class="btn btn-info">Confirmer la commande</button>
+            </form>
+        </xpath>
+    </template>
+
+    <template id="confirmation_page" name="Email Confirmation Page">
+        <t t-call="website.layout">
+            <div class="container">
+                <br></br>
+                <h1>Confirmation</h1>
+                <p>Votre commande a été confrimée avec succès, merci pour votre confiance!</p>
+            </div>
+        </t>
+    </template>
+
+</odoo>

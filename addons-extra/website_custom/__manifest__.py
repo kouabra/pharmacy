@@ -16,6 +16,7 @@ Website
                 'base_geolocalize', 'web','website_sale', 'sale', 'board'],
     'data': [
         'views/website_custom_view.xml',
+        'views/payment_view.xml',
 
 
     ],

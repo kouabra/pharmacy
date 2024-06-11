@@ -33,6 +33,15 @@ class WebsiteSale(payment_portal.PaymentPortal):
         mail = request.env['mail.mail'].sudo().create(mail_values)
         mail.send()
 
+        #
+        mail_values = {
+            'subject': "Commande confirmée",
+            'email_to': f"{order.partner_id.email}",
+            'body_html': f"La commande {order.name} a été confirmé, notre équipe procédérera à la livrason dans les heures qui suivent",
+        }
+        mail = request.env['mail.mail'].sudo().create(mail_values)
+        mail.send()
+
         return request.render('website_custom.confirmation_page')
 
 

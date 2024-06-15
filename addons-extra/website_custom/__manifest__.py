@@ -15,9 +15,8 @@ Website
     'depends': ['base', 'mail', 'sale_management', 'website',
                 'base_geolocalize', 'web','website_sale', 'sale', 'board'],
     'data': [
-        'views/website_custom_view.xml',
-        'views/payment_view.xml',
-
+         'views/website_custom_view.xml',
+         'views/payment_view.xml',
 
     ],
     'installable': True,

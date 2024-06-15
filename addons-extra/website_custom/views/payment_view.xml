@@ -2,16 +2,15 @@
 <odoo>
     <template id="inherit_payment" name="Address Management" inherit_id="website_sale.payment">
 <!--        <xpath expr="//*[@class='oe_structure clearfix mt-3']" position="after">-->
-                    <xpath expr="//t[@t-call='website_sale.checkout_layout']" position="inside">
-
-<!--        <xpath expr="//t[@t-if='website_sale_order.amount_total']" position="after">-->
+        <xpath expr="//t[@t-call='website_sale.checkout_layout']/t[@t-if='website_sale_order.amount_total']" position="replace">
+        </xpath>
+        <xpath expr="//t[@t-call='website_sale.checkout_layout']" position="inside">
+            <br></br>
             <form action="/sale/confirmation">
               <div class="form-group">
 <!--                <label for="email">Email address:</label>-->
 <!--                <input type="email" class="form-control" id="email"/>-->
               </div>
-
-
               <button type="submit" class="btn btn-info">Confirmer la commande</button>
             </form>
         </xpath>

@@ -26,22 +26,35 @@ class WebsiteSale(payment_portal.PaymentPortal):
         print("order ", order)
         order.action_confirm()
         mail_values = {
-            'subject': "Commande confirmée",
-            'email_to': "contact@balisapharma.ci",
+            'subject': f"Commande {order.name} confirmée",
+            'email_to': f"{request.env.company.email}",
             'body_html': f"La commande {order.name} a été confirmé par le client veuillez s'il vous plait procéder à la livraison",
         }
         mail = request.env['mail.mail'].sudo().create(mail_values)
         mail.send()
 
-        #
-        mail_values = {
-            'subject': "Commande confirmée",
-            'email_to': f"{order.partner_id.email}",
-            'body_html': f"La commande {order.name} a été confirmé, notre équipe procédérera à la livrason dans les heures qui suivent",
-        }
-        mail = request.env['mail.mail'].sudo().create(mail_values)
-        mail.send()
+        # Send email to customer
+        # Generate the list of items in the order
+        items_html = "<ul>"
+        for line in order.order_line:
+            items_html += f"<li>{line.product_id.name} - Quantité: {line.product_uom_qty} - Prix: {line.price_unit}</li>"
+        items_html += "</ul>"
 
+        order_mail_values = {
+            'subject': f"Commande {order.name} confirmée",
+            'email_to': order.partner_id.email,
+            'body_html': f"""
+                        <p>Bonjour {order.partner_id.name},</p>
+                        <p>Votre commande <strong>{order.name}</strong> a été confirmée.</p>
+                        <p>Voici la liste des articles commandés:</p>
+                        {items_html}
+                        <p>Notre équipe procédera à la livraison dans les heures qui suivent.</p>
+                        <p>Merci pour votre confiance.</p>
+                        <p>Cordialement,<br/>L'équipe de {request.env.user.company_id.name}</p>
+                    """,
+        }
+        order_mail = request.env['mail.mail'].create(order_mail_values)
+        order_mail.send()
         return request.render('website_custom.confirmation_page')
 
 

@@ -53,7 +53,7 @@ class WebsiteSale(payment_portal.PaymentPortal):
                         <p>Cordialement,<br/>L'équipe de {request.env.user.company_id.name}</p>
                     """,
         }
-        order_mail = request.env['mail.mail'].create(order_mail_values)
+        order_mail = request.env['mail.mail'].sudo().create(order_mail_values)
         order_mail.send()
         return request.render('website_custom.confirmation_page')
 

@@ -26,6 +26,7 @@ class WebsiteSale(payment_portal.PaymentPortal):
         print("order ", order)
         order.action_confirm()
         mail_values = {
+            'email_from': "odoo4africa@gmail.com",
             'subject': f"Commande {order.name} confirmée",
             'email_to': f"{request.env.company.email}",
             'body_html': f"La commande {order.name} a été confirmé par le client veuillez s'il vous plait procéder à la livraison",
@@ -41,6 +42,7 @@ class WebsiteSale(payment_portal.PaymentPortal):
         items_html += "</ul>"
 
         order_mail_values = {
+            'email_from': "odoo4africa@gmail.com",
             'subject': f"Commande {order.name} confirmée",
             'email_to': order.partner_id.email,
             'body_html': f"""
